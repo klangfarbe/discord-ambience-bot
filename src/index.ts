@@ -19,8 +19,10 @@ const client = new Client({
 client.login(config.DISCORD_TOKEN);
 
 // Audio player
-const player = new Player(client);
-await player.extractors.loadMulti(DefaultExtractors);
+(async () => {
+  const player = new Player(client);
+  await player.extractors.loadMulti(DefaultExtractors);
+})();
 
 // -----------------------------------------------------------------------------
 // eventhandling
