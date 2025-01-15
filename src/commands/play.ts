@@ -5,6 +5,7 @@ import {
   SlashCommandBuilder,
   VoiceChannel,
 } from "discord.js";
+import { buttons } from "../buttons";
 
 export const data = new SlashCommandBuilder()
   .setName(`play`)
@@ -81,18 +82,27 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     queue.tasksQueue.release();
   }
 
-  const currentTrack = queue.currentTrack;
-  // const upcomingTracks = queue.tracks.toArray().slice(0, 5);
+  // ---------------------------------------------------------------------------
+  // Buttons
+  // ---------------------------------------------------------------------------
 
-  // Create a message with the current track and upcoming tracks
-  const message = [
-    `**Playing:** ${currentTrack?.title} - ${currentTrack?.author}`,
-    // "",
-    // "**Upcoming Tracks:**",
-    // ...upcomingTracks.map(
-    //   (track, index) => `${index + 1}. ${track.title} - ${track.author}`
-    // ),
-  ].join("\n");
-  return interaction.followUp(message);
-  // }
+  return interaction.followUp({
+    content: `**Playing:** ${queue.currentTrack?.title} - ${queue.currentTrack?.author}`,
+    components: buttons,
+  });
+
+  // const currentTrack = queue.currentTrack;
+  // // const upcomingTracks = queue.tracks.toArray().slice(0, 5);
+
+  // // Create a message with the current track and upcoming tracks
+  // const message = [
+  //   `**Playing:** ${currentTrack?.title} - ${currentTrack?.author}`,
+  //   // "",
+  //   // "**Upcoming Tracks:**",
+  //   // ...upcomingTracks.map(
+  //   //   (track, index) => `${index + 1}. ${track.title} - ${track.author}`
+  //   // ),
+  // ].join("\n");
+  // return interaction.followUp(message);
+  // // }
 }
